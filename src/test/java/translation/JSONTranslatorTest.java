@@ -29,4 +29,14 @@ public class JSONTranslatorTest {
     public void translate() {
         assertEquals("Canada", jsonTranslator.translate("can", "en"));
     }
+
+    @Test
+    public void translate2() {
+        assertEquals("加拿大", jsonTranslator.translate("can", "zh"));
+    }
+
+    @Test
+    public void translate3() {
+        assertEquals("United States of America", jsonTranslator.translate("usa", "en"));
+    }
 }

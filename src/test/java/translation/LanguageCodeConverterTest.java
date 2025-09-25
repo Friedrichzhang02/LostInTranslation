@@ -13,6 +13,24 @@ public class LanguageCodeConverterTest {
     }
 
     @Test
+    public void fromLanguageCodeCaseSensitiveJA() {
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+        assertEquals("Japanese", converter.fromLanguageCode("JA"));
+    }
+
+    @Test
+    public void fromLanguageEN() {
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+        assertEquals("en", converter.fromLanguage("English"));
+    }
+
+    @Test
+    public void fromLanguageCaseSensitiveTH() {
+        LanguageCodeConverter converter = new LanguageCodeConverter();
+        assertEquals("th", converter.fromLanguage("tHaI"));
+    }
+
+    @Test
     public void fromLanguageCodeAllLoaded() {
         LanguageCodeConverter converter = new LanguageCodeConverter();
         assertEquals(184, converter.getNumLanguages());
