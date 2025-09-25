@@ -17,6 +17,9 @@ import java.util.Arrays;
 public class GUI {
 
     static Translator translator = new JSONTranslator();
+    static LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+    static CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -27,8 +30,9 @@ public class GUI {
             languagePanel.setPreferredSize(new Dimension(350, 55));
             JComboBox<String> languageComboBox = new JComboBox<>();
             languageComboBox.setPreferredSize(new Dimension(240, 20));
-            for(String countryCode : translator.getLanguageCodes()) {
-                languageComboBox.addItem(countryCode);
+
+            for(String languageCode : translator.getLanguageCodes()) {
+                languageComboBox.addItem(languageCodeConverter.fromLanguageCode(languageCode));
             }
             languagePanel.add(languageComboBox);
             languageComboBox.setSelectedItem("de");
@@ -55,7 +59,7 @@ public class GUI {
 
             int i = 0;
             for(String countryCode : translator.getCountryCodes()) {
-                items[i++] = countryCode;
+                items[i++] = countryCodeConverter.fromCountryCode(countryCode);
             }
 
             JList<String> list = new JList<>(items);
@@ -77,8 +81,8 @@ public class GUI {
 
                     String[] results = new String[items.length];
                     for (int i = 0; i < items.length; i++) {
-                        String language = languageComboBox.getSelectedItem().toString();
-                        String country = items[i];
+                        String language = languageCodeConverter.fromLanguage(languageComboBox.getSelectedItem().toString());
+                        String country = countryCodeConverter.fromCountry(items[i]);
                         String result = translator.translate(country, language);
                         if (result == null) {
                             result = "no translation found!";
